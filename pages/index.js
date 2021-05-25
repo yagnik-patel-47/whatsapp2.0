@@ -2,12 +2,16 @@ import PageTitle from "../components/PageTitle";
 import styled from "styled-components";
 import SideBar from "../components/SideBar";
 import { SideMenuContext } from "../context/SideMenu";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DarkModeContext } from "../context/DarkMode";
 
 export default function Home() {
   const [showMenu, setShowMenu] = useContext(SideMenuContext);
   const [darkMode, setDarkMode] = useContext(DarkModeContext);
+
+  useEffect(() => {
+    setShowMenu(true);
+  }, []);
 
   return (
     <Container>

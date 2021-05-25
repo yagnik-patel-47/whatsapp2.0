@@ -13,7 +13,7 @@ This app has all basic features of whatsapp.
 
 ## Screenshots
 
-[Screenshot](https://ibb.co/zSVSssk)
+[Screenshot](https://i.ibb.co/cNhNJJm/20210525-155834-0000.png)
 
 Deployed on Vercel.
 

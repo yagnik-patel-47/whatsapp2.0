@@ -1,7 +1,7 @@
 import { useState, createContext } from "react";
 
 export const SideMenuProvider = ({ children }) => {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
   return (
     <SideMenuContext.Provider value={[showMenu, setShowMenu]}>
       {children}
