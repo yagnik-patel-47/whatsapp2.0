@@ -1,0 +1,24 @@
+{
+    "name": "WhatsApp 2.0",
+    "short_name": "WhatsApp2.0",
+    "description": "This WhatsApp Clone is made uisng next js and firebase.",
+    "display": "standalone",
+    "theme_color": "#f6f6f6",
+    "background_color": "#35db52",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable any"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable any"
+        }
+    ]
+}
