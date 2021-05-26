@@ -1,9 +1,7 @@
 import { useState, createContext } from "react";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export const DarkModeProvider = ({ children }) => {
-  const preferDark = useMediaQuery("(prefers-color-scheme: dark)");
-  const [darkMode, setDarkMode] = useState(preferDark);
+  const [darkMode, setDarkMode] = useState(true);
   return (
     <DarkModeContext.Provider value={[darkMode, setDarkMode]}>
       {children}

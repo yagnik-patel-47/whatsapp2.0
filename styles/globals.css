@@ -21,3 +21,9 @@ body {
 .timeagoclass {
   font-size: 0.8rem;
 }
+
+@media screen and (max-width: 320px) {
+  .timeagoclass {
+    font-size: 0.6rem;
+  }
+}

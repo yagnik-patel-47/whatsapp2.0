@@ -7,6 +7,7 @@ import {
   Typography,
   Avatar,
   Tooltip,
+  makeStyles,
 } from "@material-ui/core";
 import FormatClearIcon from "@material-ui/icons/FormatClear";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -20,12 +21,27 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import TimeAgo from "timeago-react";
 import { DarkModeContext } from "../context/DarkMode";
 
+const useStyles = makeStyles((theme) => ({
+  userEmail: {
+    [theme.breakpoints.down(321)]: {
+      fontSize: "0.8rem",
+    },
+  },
+  userAvatar: {
+    [theme.breakpoints.down(321)]: {
+      width: "30px",
+      height: "30px",
+    },
+  },
+}));
+
 const ChatHeader = ({ email }) => {
   const [showMenu, setShowMenu] = useContext(SideMenuContext);
   const [darkMode, setDarkMode] = useContext(DarkModeContext);
   const [receiver, setReceiver] = useState({});
   const isMobile = useMediaQuery("(max-width:768px)");
   const router = useRouter();
+  const classes = useStyles();
 
   const clearChats = () => {
     db.collection("chats").doc(router.query.chatid).set(
@@ -73,14 +89,19 @@ const ChatHeader = ({ email }) => {
                 </IconButton>
               )}
               {receiver ? (
-                <Avatar src={receiver.photo}></Avatar>
+                <Avatar
+                  className={classes.userAvatar}
+                  src={receiver.photo}
+                ></Avatar>
               ) : (
-                <Avatar>
+                <Avatar className={classes.userAvatar}>
                   <AccountCircleIcon />
                 </Avatar>
               )}
               <div style={{ margin: "0 1rem" }}>
-                {email && <Typography>{email}</Typography>}
+                {email && (
+                  <Typography className={classes.userEmail}>{email}</Typography>
+                )}
                 {!receiver && (
                   <span className="timeagoclass">Currently Unavailable</span>
                 )}

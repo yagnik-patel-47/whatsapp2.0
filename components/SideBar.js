@@ -28,14 +28,17 @@ import { motion } from "framer-motion";
 import { ChatUserAnim } from "../animations/ChatUser";
 import Image from "next/image";
 import { DarkModeContext } from "../context/DarkMode";
-import theme from "../appTheme";
 
 const useStyles = makeStyles((theme) => ({
   drawer: (darkMode) => ({
     height: "100%",
     width: "100vw",
     background: darkMode ? "#282a34" : "#fff",
-    [theme.breakpoints.up(768)]: {
+    [theme.breakpoints.between(769, 1025)]: {
+      position: "relative",
+      width: "35vw",
+    },
+    [theme.breakpoints.up(1025)]: {
       position: "relative",
       width: "25vw",
     },
@@ -43,10 +46,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SideBar = () => {
+  const preferDark = useMediaQuery("(prefers-color-scheme: dark)");
   const isMobile = useMediaQuery("(max-width:768px)");
 
   const [user] = useAuthState(auth);
   const [chatUsers, setChatUsers] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [showMenu, setShowMenu] = useContext(SideMenuContext);
   const [darkMode, setDarkMode] = useContext(DarkModeContext);
 
@@ -111,6 +116,23 @@ const SideBar = () => {
       setChatUsers(usersDoc.data().emails);
     }
   }, [usersDoc]);
+
+  useEffect(() => {
+    if (!loading && usersDoc.exists) {
+      setChatUsers(usersDoc.data().emails);
+    }
+    if (searchText !== "") {
+      const allLetters = searchText.split("");
+      allLetters.forEach((letter) => {
+        const filteredUsers = chatUsers.filter((user) => user.includes(letter));
+        setChatUsers(filteredUsers);
+      });
+    }
+  }, [searchText]);
+
+  useEffect(() => {
+    setDarkMode(preferDark);
+  }, []);
 
   return (
     <Drawer
@@ -177,6 +199,10 @@ const SideBar = () => {
           placeholder="Search chat..."
           fullWidth
           style={{ padding: "0 1rem" }}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
+          inputProps={{ type: "search", autoCapitalize: "off" }}
         />
       </SpaceContainer>
       <Divider />
